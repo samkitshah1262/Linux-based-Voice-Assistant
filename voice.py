@@ -2,10 +2,12 @@ import datetime
 import os
 import smtplib
 import webbrowser
-
+import random
 import pyttsx3
 import speech_recognition as sr
 import wikipedia
+import pyjokes
+import requests
 
 print("Initializing Assistant")
 MASTER = "Samkit"
@@ -17,29 +19,29 @@ engine.setProperty('voice', voices[0].id)
 def speak(text):
     engine.say(text)
     engine.runAndWait()
+    # rate = engine.getProperty('rate')   # getting details of current speaking rate
+    # print (rate)                        #printing current voice rate
+    # engine.setProperty('rate', 125)     # setting up new voice rate
+
 
 #This funtion will wish you as per the current time
 def wishMe():
     hour = int(datetime.datetime.now().hour)
     # print(hour)
-
     if hour>=0 and hour <12:
         speak("good morning" + MASTER)
-
     elif hour>=12 and hour<18:
         speak("good afternoon" + MASTER)
-
     else:
-        speak("good Evening" + MASTER)
-
+        speak("good evening" + MASTER)
     speak("I am your assistant. How may I help you?")
 
 def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('kumaraman.rose@gmail.ocm', 'password')
-    server.sendmail("harry@gmail.com", to, content)
+    server.login('xvyxutsjst@gmail.com', '#xvyxutsjst_1')
+    server.sendmail("xvyxutsjst@gmail.com", to, content)
     server.close()
 
 #This function will take command from the microphone
@@ -64,53 +66,74 @@ def takeCommand():
 #main program starting
 def main():
     speak("Initializing Assistant...")
-    wishMe()
+    # wishMe()
     query = takeCommand()
     print(query.lower())
     #Logic for executing tasks as per the query
     if 'open google' in query.lower():
-        #webbrowser.open('youtube.com')
-        print(1)
         url = "google.com"
-        chrome_path = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe %s'
-        webbrowser.get(chrome_path).open(url)
-
+        edge_path = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+        os.startfile(edge_path)
+        webbrowser.open(url)
+    elif 'google' in query.lower():
+        query = query.replace("google", "")
+        url = "google.com/search?q=" + query.lower()
+        edge_path = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+        os.startfile(edge_path)
+        webbrowser.open(url)
+    elif 'on youtube' in query.lower():
+        query = query.replace("on youtube", "")
+        # 
+        query = query.replace(" ", "+")
+        url = "https://www.youtube.com/results?search_query=" + query.lower()
+        edge_path = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+        os.startfile(edge_path)
+        webbrowser.open(url)
     elif 'wikipedia' in query.lower():
         speak('searching wikipedia...')
         query = query.replace("wikipedia", "")
         results = wikipedia.summary(query, sentences =2)
         print(results)
         speak(results)
-
-    elif 'open youtube' in query.lower():
-        #webbrowser.open('youtube.com')
-        url = "youtube.com"
-        chrome_path = 'c:/program Files (x86)/Google/Chrome/Application/chrome.exe %s'
-        webbrowser.get(chrome_path).open(url)
-
-    elif 'play music' in query.lower():
-        songs_dir = "C:\\Users\\Dell\\Desktop\\Photos\\audio"
-        songs = os.listdir(songs_dir)
-        print(songs)
-        os.startfile(os.path.join(songs_dir, songs[0]))
-
+    elif 'play' in query.lower():
+        query = query.replace("play", "")        
+        url = "https://www.youtube.com/results?search_query=" + query.lower()
+        edge_path = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+        os.startfile(edge_path)
+        webbrowser.open(url)
+    # tell me a joke functionality using jokes library
+    elif 'tell me a joke' in query.lower():
+        joke = pyjokes.get_joke(category=random.choice(['neutral', 'all','chuck','twister']))
+        print(joke)
+        speak(joke)
     elif 'the time' in query.lower():
         strTime = datetime.datetime.now().strftime("%H:%M:%S")
         speak(f"{MASTER} the time is {strTime}")
-
     elif 'open code' in query.lower():
-        codePath = "C:\\Users\\Dell\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+        print(2)
+        codePath = "C:\\Program Files\Microsoft VS Code\Code.exe"
         os.startfile(codePath)
-    
-    elif 'email to raj' in query.lower():
+    elif 'with code' in query.lower():
+        print(3)
+        codePath = "F:\data"
+
+    elif 'roast me' in query.lower():
+        # request to api
+        url = "https://evilinsult.com/generate_insult.php?lang=en"
+        response = requests.get(url)
+        print(response.text)
+        speak(response.text)
+        
+    elif 'email to' in query.lower():
         try:
             speak("what should i send")
             content = takeCommand()
-            to = "harry@gmail.ocm"
+            # to = "harry@gmail.ocm"
+            speak("Who should i send it to")
+            to = takeCommand()
             sendEmail(to, content)
-            speak("Email has been sent to raj")
+            speak("Email has been sent to " + to)
         except Exception as e:
             print(e)
-
 
 main()
