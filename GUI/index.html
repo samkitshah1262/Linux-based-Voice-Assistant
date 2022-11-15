@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
-    <link href="./styles.css" rel="stylesheet">
-    <title>Hello World!</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; 
+          script-src 'self' ; 
+          font-src 'self' https://fonts.gstatic.com;
+          style-src 'self' https://fonts.googleapis.com"
+    />
+    <link href="./styles.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300&family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <title>beetee</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <div class="upper">
+      <h1>beetee</h1>
+      <h2>a Linux based Voice Assistant</h2>
+    </div>
+    <div id="mic-container">
+      <img src="assets/mic-outline.svg" alt="mic" id="mic" />
+    </div>
+    <p>click the mic to activate the voice assistant</p>
 
     <!-- You can also require other files to run in this process -->
+    <script type="module" src="./script.js"></script>
     <script src="./renderer.js"></script>
   </body>
 </html>
