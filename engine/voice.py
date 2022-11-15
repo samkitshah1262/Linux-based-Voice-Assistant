@@ -64,7 +64,7 @@ def takeCommand():
 #main program starting
 def main():
     speak("Initializing Assistant...")
-    wishMe()
+    # wishMe()
     query = takeCommand()
     print(query.lower())
     #Logic for executing tasks as per the query
@@ -72,7 +72,7 @@ def main():
         #webbrowser.open('youtube.com')
         print(1)
         url = "google.com"
-        chrome_path = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe %s'
+        chrome_path = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
         webbrowser.get(chrome_path).open(url)
 
     elif 'wikipedia' in query.lower():
