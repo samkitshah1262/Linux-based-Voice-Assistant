@@ -13,6 +13,9 @@ import pyttsx3
 import speech_recognition as sr
 import wikipedia
 import sys
+import subprocess
+
+
 
 # print("Initializing Assistant...")
 MASTER = "Samkit"
@@ -125,8 +128,7 @@ def main():
         print(f"{MASTER} the time is {strTime}")
 
     elif 'open code' in query:
-        codePath = "C:\\Users\\Dell\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
-        os.startfile(codePath)
+        os.system("code")
     
     elif 'email to raj' in query.lower():
         try:
@@ -138,27 +140,20 @@ def main():
         except Exception as e:
             print(e)
     elif 'open terminal' in query.lower():
-        os.system('start cmd')
-        # os.system("start /wait cmd /c {command}")
+        os.system("gnome-terminal")
     elif 'open notepad' in query.lower():
-        os.system('start notepad')    
+        os.system("gedit")
     elif 'open calculator' in query.lower():
-        os.system('start calc')
-    elif 'open paint' in query.lower():
-        os.system('start mspaint')
+        os.system("gnome-calculator")
     elif 'open camera' in query.lower():
-        os.system('start microsoft.windows.camera:')
-    elif 'open control panel' in query.lower():
-        os.system('start control')
+        os.system('cheese')
     elif 'open file explorer' in query.lower():
-        os.system('start explorer')
+        os.system('nautilus')
     elif 'open task manager' in query.lower():
-        os.system('start taskmgr')
-    elif 'open windows media player' in query.lower():
-        os.system('start wmplayer')
-    elif 'open windows store' in query.lower():
-        os.system('start ms-windows-store:')
+        os.system('gnome-system-monitor')
     elif 'shutdown' in query.lower():
-        os.system('shutdown /s /t 1')
+        os.system('shutdown now')
+    elif 'screenshot' in query.lower():
+        os.system('gnome-screenshot')
 main()
 sys.stdout.flush()
