@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, Menu, Tray, ipcMain} = require('electron')
+const {app, BrowserWindow, Menu, Tray, ipcMain, ipcRenderer} = require('electron')
 const path = require('path')
 
 function createWindow () {
@@ -18,8 +18,30 @@ function createWindow () {
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  // minimize to tray on close
+  mainWindow.on('close', function (event) {
+    event.preventDefault();
+    mainWindow.hide();
+  });
+
+  // tray functionalities
+  let tray = null
+  app.whenReady().then(() => {
+    const iconPath = path.join(__dirname, 'assets/mic-outline2.png');
+    tray = new Tray(iconPath);
+    const contextMenu = Menu.buildFromTemplate([
+        { label: 'Show App', click:  function(){
+            mainWindow.show();
+        } },
+        { label: 'Quit', click:  function(){
+            mainWindow.destroy();
+            app.quit();
+        } }
+    ]);
+
+    tray.setToolTip('beetee')
+    tray.setContextMenu(contextMenu)
+  })
 }
 
 // This method will be called when Electron has finished
@@ -41,35 +63,4 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
-
-let tray = null
-app.whenReady().then(() => {
-  const iconPath = path.join(__dirname, 'assets/mic-outline.png');
-  tray = new Tray(iconPath);
-  const contextMenu = Menu.buildFromTemplate([
-    { label: 'Item1', type: 'radio' },
-    { label: 'Item2', type: 'radio' },
-    { label: 'Item3', type: 'radio', checked: true },
-    { label: 'Item4', type: 'radio' }
-  ])
-  tray.setToolTip('This is my application.')
-  tray.setContextMenu(contextMenu)
-})
-
-// functions to handle minimize, maximize and close events
-ipcMain.on('minimize', (event, arg) => {
-  BrowserWindow.getFocusedWindow().minimize();
-});
-
-ipcMain.on('maximize', (event, arg) => {
-  if (BrowserWindow.getFocusedWindow().isMaximized()) {
-    BrowserWindow.getFocusedWindow().restore();
-  } else {
-    BrowserWindow.getFocusedWindow().maximize();
-  }
-});
-
-ipcMain.on('close', (event, arg) => {
-  BrowserWindow.getFocusedWindow().close();
-});
 
