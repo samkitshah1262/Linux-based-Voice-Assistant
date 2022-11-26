@@ -13,6 +13,9 @@ import pyttsx3
 import speech_recognition as sr
 import wikipedia
 import sys
+import subprocess
+
+
 
 # print("Initializing Assistant...")
 MASTER = "Samkit"
@@ -137,8 +140,7 @@ def main():
         print(f"{MASTER} the time is {strTime}")
 
     elif 'open code' in query:
-        codePath = ""
-        os.startfile(codePath)
+        os.system("code")
     
     elif 'email to raj' in query.lower():
         try:
@@ -150,35 +152,17 @@ def main():
         except Exception as e:
             print(e)
     elif 'open terminal' in query.lower():
-        speak("opening terminal")
-        os.system('start cmd')
-        speak("terminal opened")
-        # os.system("start /wait cmd /c {command}")
+        os.system("gnome-terminal")
     elif 'open notepad' in query.lower():
-        speak("opening notepad")
-        os.system('start notepad')
-        speak("notepad opened")    
+        os.system("gedit")
     elif 'open calculator' in query.lower():
-        speak("opening calculator")
-        os.system('start calc')
-        speak("calculator opened")
-    elif 'open paint' in query.lower():
-        speak("opening paint")
-        os.system('start mspaint')
-        speak("paint opened")
+        os.system("gnome-calculator")
     elif 'open camera' in query.lower():
-        speak("opening camera")
-        os.system('start microsoft.windows.camera:')
-        speak("camera opened")
-    elif 'open control panel' in query.lower():
-        speak("opening control panel")
-        os.system('start control')
-        speak("control panel opened")
+        os.system('cheese')
     elif 'open file explorer' in query.lower():
-        speak("opening file explorer")
-        os.system('start explorer')
-        speak("file explorer opened")
+        os.system('nautilus')
     elif 'open task manager' in query.lower():
+        os.system('gnome-system-monitor')
         speak("opening task manager")
         os.system('start taskmgr')
         speak("task manager opened")
