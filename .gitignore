@@ -1,3 +1,5 @@
 env/
+lenv/
 node_modules
 GUI/node_modules
+engine/test.py
