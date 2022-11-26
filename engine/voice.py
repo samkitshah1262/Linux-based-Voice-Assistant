@@ -127,7 +127,38 @@ def main():
     elif 'open code' in query:
         codePath = "C:\\Users\\Dell\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
         os.startfile(codePath)
-
-# while(True):
+    
+    elif 'email to raj' in query.lower():
+        try:
+            speak("what should i send")
+            content = takeCommand()
+            to = "harry@gmail.ocm"
+            sendEmail(to, content)
+            speak("Email has been sent to raj")
+        except Exception as e:
+            print(e)
+    elif 'open terminal' in query.lower():
+        os.system('start cmd')
+        # os.system("start /wait cmd /c {command}")
+    elif 'open notepad' in query.lower():
+        os.system('start notepad')    
+    elif 'open calculator' in query.lower():
+        os.system('start calc')
+    elif 'open paint' in query.lower():
+        os.system('start mspaint')
+    elif 'open camera' in query.lower():
+        os.system('start microsoft.windows.camera:')
+    elif 'open control panel' in query.lower():
+        os.system('start control')
+    elif 'open file explorer' in query.lower():
+        os.system('start explorer')
+    elif 'open task manager' in query.lower():
+        os.system('start taskmgr')
+    elif 'open windows media player' in query.lower():
+        os.system('start wmplayer')
+    elif 'open windows store' in query.lower():
+        os.system('start ms-windows-store:')
+    elif 'shutdown' in query.lower():
+        os.system('shutdown /s /t 1')
 main()
 sys.stdout.flush()
