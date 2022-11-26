@@ -137,7 +137,7 @@ def main():
         print(f"{MASTER} the time is {strTime}")
 
     elif 'open code' in query:
-        codePath = "C:\\Users\\Dell\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+        codePath = ""
         os.startfile(codePath)
     
     elif 'email to raj' in query.lower():
@@ -186,10 +186,6 @@ def main():
         speak("opening windows media player")
         os.system('start wmplayer')
         speak("windows media player opened")
-    elif 'open windows store' in query.lower():
-        speak("opening windows store")
-        os.system('start ms-windows-store:')
-        speak("windows store opened")
     elif 'shutdown' in query.lower():
         speak("shutting down")
         os.system('shutdown /s /t 1')
@@ -201,7 +197,7 @@ def lessgo():
         if query==None:
             continue
         elif(query.lower()=='wake up'):
-            speak("Hello {MASTER} , How can i help you")
+            speak(f"Hello {MASTER} , How can i help you")
             main()
         # elif(query.lower()=='sleep'):
         elif(query.lower()=="exit"):
