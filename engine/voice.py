@@ -166,13 +166,12 @@ def main():
         speak("opening task manager")
         os.system('start taskmgr')
         speak("task manager opened")
-    elif 'open windows media player' in query.lower():
-        speak("opening windows media player")
-        os.system('start wmplayer')
-        speak("windows media player opened")
     elif 'shutdown' in query.lower():
         speak("shutting down")
-        os.system('shutdown /s /t 1')
+        os.system('shutdown now')
+    elif 'screenshot' in query.lower():
+        speak("taking screenshot")
+        os.system('gnome-screenshot')
 
 def lessgo():
     hi()
