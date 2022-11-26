@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu, Tray, ipcMain} = require('electron')
 const path = require('path')
 
 function createWindow () {
@@ -8,8 +8,11 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-    }
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+    autoHideMenuBar: true,
   })
 
   // and load the index.html of the app.
@@ -39,5 +42,34 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+let tray = null
+app.whenReady().then(() => {
+  const iconPath = path.join(__dirname, 'assets/mic-outline.png');
+  tray = new Tray(iconPath);
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Item1', type: 'radio' },
+    { label: 'Item2', type: 'radio' },
+    { label: 'Item3', type: 'radio', checked: true },
+    { label: 'Item4', type: 'radio' }
+  ])
+  tray.setToolTip('This is my application.')
+  tray.setContextMenu(contextMenu)
+})
+
+// functions to handle minimize, maximize and close events
+ipcMain.on('minimize', (event, arg) => {
+  BrowserWindow.getFocusedWindow().minimize();
+});
+
+ipcMain.on('maximize', (event, arg) => {
+  if (BrowserWindow.getFocusedWindow().isMaximized()) {
+    BrowserWindow.getFocusedWindow().restore();
+  } else {
+    BrowserWindow.getFocusedWindow().maximize();
+  }
+});
+
+ipcMain.on('close', (event, arg) => {
+  BrowserWindow.getFocusedWindow().close();
+});
+
