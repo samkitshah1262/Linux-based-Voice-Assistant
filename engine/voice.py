@@ -61,9 +61,6 @@ def takeCommand():
 
     return query
 
-
-
-
 #main program starting
 def main():
     speak("Initializing Assistant...")
