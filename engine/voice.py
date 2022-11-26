@@ -5,7 +5,7 @@ import webbrowser as wb
 import urllib.request
 import urllib.parse
 import re
-
+import time
 # google text to speech
 # from gtts import gTTS
 # pyttsx3
@@ -17,9 +17,16 @@ import sys
 # print("Initializing Assistant...")
 MASTER = "Samkit"
 
-engine = pyttsx3.init('espeak')
+engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', 'english-us')
+
+
+def hi():
+    speak("Initializing Assistant...")
+    wishMe()
+
+
 # engine.setProperty('rate', 100)
 # Speak function will speak/Pronounce the string which is passed to it
 def speak(text):
@@ -30,16 +37,19 @@ def speak(text):
 def wishMe():
     hour = int(datetime.datetime.now().hour)
     # print(hour)
-
     if hour>=0 and hour <12:
-        print("good morning" + MASTER)
+        speak("Good Morning" + MASTER)
+        print("Good morning " + MASTER)
 
     elif hour>=12 and hour<18:
-        print("good afternoon" + MASTER)
+        speak("Good Afternoon" + MASTER)
+        print("Good afternoon " + MASTER)
 
     else:
-        print("good Evening" + MASTER)
+        speak("Good Evening" + MASTER)
+        print("Good Evening " + MASTER)
 
+    speak("I am Beetee. Please tell me how may I help you")
     print("I am your assistant. How may I help you?")
 
 def sendEmail(to, content):
@@ -54,14 +64,13 @@ def sendEmail(to, content):
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        # print("Listening...")
+        print("Listening...")
         audio = r.listen(source, phrase_time_limit=8)
-
     try :
-        # print("Recognizing...")
+        print("Recognizing...")
         query = r.recognize_google(audio, language = 'en-in')
         speak("Got it...")
-        # print(query)
+        print(query)
         print(f"you said: {query}\n")
 
     except Exception as e:
@@ -72,11 +81,14 @@ def takeCommand():
 
 #main program starting
 def main():
-    # speak("Initializing Assistant...")
     # wishMe()
     # print("starting...")
     query = takeCommand()
+    if(query==None):
+        speak('No command given , Try again in some time')
+        return
     query = query.lower()
+    speak(query)
     print(query)
     #Logic for executing tasks as per the query
     if 'open google' in query:
@@ -138,27 +150,69 @@ def main():
         except Exception as e:
             print(e)
     elif 'open terminal' in query.lower():
+        speak("opening terminal")
         os.system('start cmd')
+        speak("terminal opened")
         # os.system("start /wait cmd /c {command}")
     elif 'open notepad' in query.lower():
-        os.system('start notepad')    
+        speak("opening notepad")
+        os.system('start notepad')
+        speak("notepad opened")    
     elif 'open calculator' in query.lower():
+        speak("opening calculator")
         os.system('start calc')
+        speak("calculator opened")
     elif 'open paint' in query.lower():
+        speak("opening paint")
         os.system('start mspaint')
+        speak("paint opened")
     elif 'open camera' in query.lower():
+        speak("opening camera")
         os.system('start microsoft.windows.camera:')
+        speak("camera opened")
     elif 'open control panel' in query.lower():
+        speak("opening control panel")
         os.system('start control')
+        speak("control panel opened")
     elif 'open file explorer' in query.lower():
+        speak("opening file explorer")
         os.system('start explorer')
+        speak("file explorer opened")
     elif 'open task manager' in query.lower():
+        speak("opening task manager")
         os.system('start taskmgr')
+        speak("task manager opened")
     elif 'open windows media player' in query.lower():
+        speak("opening windows media player")
         os.system('start wmplayer')
+        speak("windows media player opened")
     elif 'open windows store' in query.lower():
+        speak("opening windows store")
         os.system('start ms-windows-store:')
+        speak("windows store opened")
     elif 'shutdown' in query.lower():
+        speak("shutting down")
         os.system('shutdown /s /t 1')
-main()
+
+def lessgo():
+    hi()
+    while True:
+        query=takeCommand()
+        if query==None:
+            continue
+        elif(query.lower()=='wake up'):
+            speak("Hello {MASTER} , How can i help you")
+            main()
+        # elif(query.lower()=='sleep'):
+        elif(query.lower()=="exit"):
+            speak("Exiting")
+            break
+        time.sleep(3)
+        # speak("Do you want to continue")
+        print("Ready again")
+        # samkit=10
+
+
+
+lessgo()
 sys.stdout.flush()
