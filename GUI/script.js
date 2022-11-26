@@ -11,9 +11,9 @@ const path = require("path");
 // add event listener to mic when window is loaded
 window.addEventListener("load", () => {
   mic.addEventListener("click", () => {
-    mic.classList.toggle("mic-active");
+    mic.classList.add("mic-active");
     mic.style.pointerEvents = "none";
-    micContainer.classList.toggle("mic-container-active");
+    micContainer.classList.add("mic-container-active");
 
     var options = {
       scriptPath: path.join(__dirname, "../engine/"),
@@ -30,7 +30,17 @@ window.addEventListener("load", () => {
     PythonShell.run("voice.py", options, function (err, results) {
       if (err) throw err;
       // results is an array consisting of messages collected during execution
-      console.log("results: %j", results);
+      // console.log("results: %j", results);
+      // display the result on screen in p tag
+      document.getElementById("result").innerHTML = results[0];
+      mic.classList.remove("mic-active");
+      mic.style.pointerEvents = "auto";
+      micContainer.classList.remove("mic-container-active");
     });
+
+    // reset the result after 2 seconds
+    setTimeout(() => {
+      document.getElementById("result").innerHTML = "click the mic to activate the voice assistant";
+    }, 2000);
   });
 });

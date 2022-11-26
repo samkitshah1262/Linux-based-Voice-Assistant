@@ -69,7 +69,7 @@ h2 {
 }
 
 .mic-container-active {
-	animation: 1s ease 0s 10 fade;
+	animation: 1s ease 0s 5 fade;
 }
 
 @keyframes fade {
@@ -103,7 +103,7 @@ h2 {
 }
 
 .mic-active {
-	animation: 1s ease 0s 10 mic-animation;
+	animation: 1s ease 0s 5 mic-animation;
 }
 
 @keyframes mic-animation {
@@ -124,6 +124,7 @@ p {
 	padding: 1vh;
 	font-family: 'Poppins', sans-serif;
 	font-weight: 300;
+	user-select: none;
 }
 
 /* Add styles here to customize the appearance of your app */
