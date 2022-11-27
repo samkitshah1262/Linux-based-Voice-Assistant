@@ -15,9 +15,19 @@ import wikipedia
 import sys
 import subprocess
 
+#read a javascript file using python
+def readjs():
+    f=open("..\GUI\output.txt","r")
+    x=f.read()
+    print(f.read())
+    # write output to a file
+    # f1=open('output.','w')
+    # f1.write(x)
+    if(x=="1"):
+        sys.exit()
+    return
 
-
-# print("Initializing Assistant...")
+# # print("Initializing Assistant...")
 MASTER = "Samkit"
 
 engine = pyttsx3.init('sapi5')
@@ -174,8 +184,10 @@ def main():
         os.system('gnome-screenshot')
 
 def lessgo():
-    hi()
+    # hi()
     while True:
+        readjs()
+        speak("Ready again 1")
         query=takeCommand()
         if query==None:
             continue
@@ -187,8 +199,9 @@ def lessgo():
             speak("Exiting")
             break
         time.sleep(3)
+        
         # speak("Do you want to continue")
-        print("Ready again")
+        speak("Ready again 2")
         # samkit=10
 
 

@@ -1,6 +1,8 @@
 const mic = document.getElementById("mic");
 const micContainer = document.getElementById("mic-container");
 
+const fs = require('fs')
+
 // import python shell npm package
 // import { PythonShell } from "python-shell";
 // import { PythonShell } from './node_modules/python-shell/index';
@@ -10,7 +12,7 @@ const path = require("path");
 
 // add event listener to mic when window is loaded
 window.addEventListener("load", () => {
-  mic.addEventListener("click", () => {
+  // mic.addEventListener("click", () => {
     mic.classList.add("mic-active");
     mic.style.pointerEvents = "none";
     micContainer.classList.add("mic-container-active");
@@ -42,5 +44,6 @@ window.addEventListener("load", () => {
     setTimeout(() => {
       document.getElementById("result").innerHTML = "click the mic to activate the voice assistant";
     }, 2000);
-  });
+  // });
 });
+

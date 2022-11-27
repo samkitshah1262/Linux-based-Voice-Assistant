@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow, Menu, Tray, ipcMain, ipcRenderer} = require('electron')
 const path = require('path')
-
+const fs= require('fs')
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -34,6 +34,13 @@ function createWindow () {
             mainWindow.show();
         } },
         { label: 'Quit', click:  function(){
+          // before window closes, kill the python process
+            // window.addEventListener("beforeunload", () => {
+              fs.writeFile("./output.txt", "1", function (err) {
+                if (err) throw err;
+                console.log("Saved!");
+              });
+            // });
             mainWindow.destroy();
             app.quit();
         } }
