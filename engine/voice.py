@@ -184,6 +184,25 @@ def main():
         # speak("taking screenshot")
         os.system('gnome-screenshot')
         speak("Done")
+    elif 'show ram' in query.lower():
+        os.system('free -h')
+        speak("Done")
+    elif 'show cpu' in query.lower():
+        os.system('lscpu')
+        speak("Done")
+    elif 'show disk' in query.lower():
+        os.system('df -h')
+        speak("Done")
+    elif 'show network' in query.lower():
+        os.system('ifconfig')
+        speak("Done")
+    elif 'show processes' in query.lower():
+        os.system('ps -aux')
+        speak("Done")
+    
+    
+
+
 def lessgo():
     hi()
     main()
