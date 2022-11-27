@@ -20,9 +20,6 @@ def readjs():
     f=open("..\GUI\output.txt","r")
     x=f.read()
     print(f.read())
-    # write output to a file
-    # f1=open('output.','w')
-    # f1.write(x)
     if(x=="1"):
         sys.exit()
     return
@@ -34,11 +31,9 @@ engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 engine.setProperty('voice', 'english-us')
 
-
 def hi():
-    speak("Initializing Assistant...")
+    # speak("Initializing Assistant...")
     wishMe()
-
 
 # engine.setProperty('rate', 100)
 # Speak function will speak/Pronounce the string which is passed to it
@@ -62,8 +57,8 @@ def wishMe():
         speak("Good Evening" + MASTER)
         print("Good Evening " + MASTER)
 
-    speak("I am Beetee. Please tell me how may I help you")
-    print("I am your assistant. How may I help you?")
+    # speak("I am Beetee. Please tell me how may I help you")
+    print("I am BeeTee. How may I help you?")
 
 def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -151,6 +146,7 @@ def main():
 
     elif 'open code' in query:
         os.system("code")
+        speak("Done")
     
     elif 'email to raj' in query.lower():
         try:
@@ -163,45 +159,51 @@ def main():
             print(e)
     elif 'open terminal' in query.lower():
         os.system("gnome-terminal")
+        speak("Done")
     elif 'open notepad' in query.lower():
         os.system("gedit")
+        speak("Done")
     elif 'open calculator' in query.lower():
         os.system("gnome-calculator")
+        speak("Done")
     elif 'open camera' in query.lower():
         os.system('cheese')
+        speak("Done")
     elif 'open file explorer' in query.lower():
         os.system('nautilus')
+        speak("Done")
     elif 'open task manager' in query.lower():
         os.system('gnome-system-monitor')
-        speak("opening task manager")
+        # speak("opening task manager")
         os.system('start taskmgr')
-        speak("task manager opened")
+        speak("Done")
     elif 'shutdown' in query.lower():
         speak("shutting down")
         os.system('shutdown now')
     elif 'screenshot' in query.lower():
-        speak("taking screenshot")
+        # speak("taking screenshot")
         os.system('gnome-screenshot')
-
+        speak("Done")
 def lessgo():
-    # hi()
+    hi()
+    main()
     while True:
         readjs()
-        speak("Ready again 1")
+        # speak("Ready again 1")
         query=takeCommand()
         if query==None:
+            time.sleep(3)
             continue
         elif(query.lower()=='wake up'):
-            speak(f"Hello {MASTER} , How can i help you")
+            # speak(f"Hello {MASTER} , How can i help you")
             main()
         # elif(query.lower()=='sleep'):
         elif(query.lower()=="exit"):
             speak("Exiting")
             break
-        time.sleep(3)
         
         # speak("Do you want to continue")
-        speak("Ready again 2")
+        # speak("Ready again 2")
         # samkit=10
 
 
