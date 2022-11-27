@@ -14,6 +14,11 @@ import speech_recognition as sr
 import wikipedia
 import sys
 import subprocess
+from tqdm import tqdm
+from time import sleep
+import psutil
+
+
 
 #read a javascript file using python
 def readjs():
@@ -91,6 +96,7 @@ def takeCommand():
 def main():
     # wishMe()
     # print("starting...")
+    speak("How may I help you?")
     query = takeCommand()
     if(query==None):
         speak('No command given , Try again in some time')
@@ -184,23 +190,33 @@ def main():
         # speak("taking screenshot")
         os.system('gnome-screenshot')
         speak("Done")
-    elif 'show ram' in query.lower():
-        os.system('free -h')
-        speak("Done")
-    elif 'show cpu' in query.lower():
-        os.system('lscpu')
-        speak("Done")
-    elif 'show disk' in query.lower():
-        os.system('df -h')
-        speak("Done")
-    elif 'show network' in query.lower():
-        os.system('ifconfig')
-        speak("Done")
-    elif 'show processes' in query.lower():
-        os.system('ps -aux')
-        speak("Done")
+    # elif 'memory' in query.lower():
+    #     os.system('free -h')
+    #     speak("Done")
+    elif 'cpu' or 'memory' in query.lower():
+        with tqdm(total=100, desc='cpu%', position=1) as cpubar, tqdm(total=100, desc='ram%', position=0) as rambar:
+            #run this loop for 5 seconds
+            x=0
+            while x<10:
+                rambar.n=psutil.virtual_memory().percent
+                cpubar.n=psutil.cpu_percent()
+                rambar.refresh()
+                cpubar.refresh()
+                sleep(0.5)
+                x+=1
+        # print(os.system('lscpu'))
+        # speak("Done")
+    # elif 'show disk' in query.lower():
+    #     os.system('df -h')
+    #     speak("Done")
+    # elif 'show network' in query.lower():
+    #     os.system('ifconfig')
+    #     speak("Done")
+    # elif 'show processes' in query.lower():
+    #     os.system('ps -aux')
+    #     speak("Done")
     
-    
+
 
 
 def lessgo():
